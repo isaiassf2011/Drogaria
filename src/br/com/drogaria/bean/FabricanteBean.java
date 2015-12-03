@@ -62,6 +62,7 @@ public class FabricanteBean {
 		try {
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			listafabricantes = fabricanteDAO.listar();
+			
 		} catch (RuntimeException ex) {
 			FacesUtil.addMsgErro("Erro ao tentar listar fabricantes: "+ ex.getMessage());
 		}
