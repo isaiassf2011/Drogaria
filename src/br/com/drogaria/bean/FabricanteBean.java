@@ -18,9 +18,6 @@ public class FabricanteBean {
 	private List<Fabricante> listafabricantesFiltrados;
 
 	public Fabricante getFabricanteCadastro() {
-		if (fabricanteCadastro == null) {
-			fabricanteCadastro = new Fabricante();
-		}
 		return fabricanteCadastro;
 	}
 
@@ -53,7 +50,33 @@ public class FabricanteBean {
 			limpar();
 			FacesUtil.addMsgInfo("Fabricante salvo com sucesso");
 		} catch (RuntimeException ex) {
-			FacesUtil.addMsgErro("Erro ao tentar incluir fabricante: "
+			FacesUtil.addMsgErro("Erro ao tentar salvar fabricante: "
+					+ ex.getMessage());
+		}
+	}
+	
+	public void excluir() {
+
+		try {
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricanteDAO.excluir(fabricanteCadastro);
+			
+			FacesUtil.addMsgInfo("Fabricante excluido com sucesso");
+		} catch (RuntimeException ex) {
+			FacesUtil.addMsgErro("Erro ao tentar excluir fabricante: "
+					+ ex.getMessage());
+		}
+	}
+	
+	public void editar() {
+
+		try {
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricanteDAO.alterar(fabricanteCadastro);
+			
+			FacesUtil.addMsgInfo("Fabricante alterado com sucesso");
+		} catch (RuntimeException ex) {
+			FacesUtil.addMsgErro("Erro ao tentar alterar fabricante: "
 					+ ex.getMessage());
 		}
 	}
@@ -79,6 +102,8 @@ public class FabricanteBean {
 				Long codigo = Long.parseLong(valor);
 				FabricanteDAO fabricanteDAO = new FabricanteDAO();
 				fabricanteCadastro = fabricanteDAO.buscarPorCodigo(codigo);
+			}else{
+				limpar();
 			}
 			
 		} catch (RuntimeException ex) {
