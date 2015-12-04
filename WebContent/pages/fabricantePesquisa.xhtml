@@ -24,11 +24,10 @@
 			<p:dataTable emptyMessage="Nenhum registro encontrado"
 				value="#{fabricanteBean.listafabricantes}"
 				filteredValue="#{fabricanteBean.listafabricantesFiltrados}"
-				var="fabricante" rows="10" paginator="true">
+				var="fabricante" rows="6" paginator="true">
 
 				<f:facet name="footer">
-					<p:commandButton value="Novo"
-						action="/pages/fabricanteCadastro.xhtml?faces-redirect=true" />
+					<p:button value="Novo" outcome="/pages/fabricanteCadastro.xhtml" />
 				</f:facet>
 
 				<p:column headerText="Código">
@@ -39,6 +38,12 @@
 					<h:outputText value="#{fabricante.descricao}" />
 				</p:column>
 				<p:column headerText="Opções">
+					<p:button value="Excluir" outcome="/pages/fabricanteCadastro.xhtml">
+						<f:param name="codigo" value="#{fabricante.codigo}"></f:param>
+					</p:button>
+					<p:button value="Editar" outcome="/pages/fabricanteCadastro.xhtml">
+						<f:param name="codigo" value="#{fabricante.codigo}"></f:param>
+					</p:button>
 				</p:column>
 			</p:dataTable>
 		</h:form>

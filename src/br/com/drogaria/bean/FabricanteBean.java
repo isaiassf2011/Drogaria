@@ -71,5 +71,19 @@ public class FabricanteBean {
 	public void limpar() {
 		fabricanteCadastro = new Fabricante();
 	}
+	
+	public void carregarCadastro(){
+		try {
+			String valor = FacesUtil.getParam("codigo");
+			if(valor != null){
+				Long codigo = Long.parseLong(valor);
+				FabricanteDAO fabricanteDAO = new FabricanteDAO();
+				fabricanteCadastro = fabricanteDAO.buscarPorCodigo(codigo);
+			}
+			
+		} catch (RuntimeException ex) {
+			FacesUtil.addMsgErro("Erro ao tentar obter os dados do fabricante: "+ ex.getMessage());
+		}
+	}
 
 }
