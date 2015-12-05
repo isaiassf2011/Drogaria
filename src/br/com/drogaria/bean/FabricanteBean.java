@@ -16,6 +16,8 @@ public class FabricanteBean {
 	private Fabricante fabricanteCadastro;
 	private List<Fabricante> listafabricantes;
 	private List<Fabricante> listafabricantesFiltrados;
+	private String acao;
+	private Long codigo;
 
 	public Fabricante getFabricanteCadastro() {
 		return fabricanteCadastro;
@@ -40,6 +42,22 @@ public class FabricanteBean {
 	public void setListafabricantesFiltrados(
 			List<Fabricante> listafabricantesFiltrados) {
 		this.listafabricantesFiltrados = listafabricantesFiltrados;
+	}
+	
+	public String getAcao() {
+		return acao;
+	}
+
+	public void setAcao(String acao) {
+		this.acao = acao;
+	}
+	
+	public Long getCodigo() {
+		return codigo;
+	}
+	
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
 	}
 
 	public void salvar() {
@@ -97,9 +115,7 @@ public class FabricanteBean {
 	
 	public void carregarCadastro(){
 		try {
-			String valor = FacesUtil.getParam("codigo");
-			if(valor != null){
-				Long codigo = Long.parseLong(valor);
+			if(codigo != null){
 				FabricanteDAO fabricanteDAO = new FabricanteDAO();
 				fabricanteCadastro = fabricanteDAO.buscarPorCodigo(codigo);
 			}else{

@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "tbl_funcionarios")
@@ -22,15 +26,20 @@ public class Funcionario {
 	@Column(name = "fun_codigo", nullable = false, unique = true)
 	private Long codigo;
 
+	@NotEmpty(message = "O campo nome é obrigatório")
 	@Column(name = "fun_nome", nullable = false, length = 50)
 	private String nome;
 
+	@NotEmpty(message = "O campo cpf é obrigatório")
 	@Column(name = "fun_cpf", nullable = false, length = 14, unique = true)
+	@CPF(message = "O CPF informado é invalido")
 	private String cpf;
 
+	@NotEmpty(message = "O campo senha é obrigatório")
 	@Column(name = "fun_senha", nullable = false, length = 32)
 	private String senha;
 
+	@NotEmpty(message = "O campo funcao é obrigatório")
 	@Column(name = "fun_funcao", nullable = false, length = 50)
 	private String funcao;
 

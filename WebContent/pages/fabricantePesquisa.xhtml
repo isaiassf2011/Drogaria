@@ -27,7 +27,9 @@
 				var="fabricante" rows="10" paginator="true">
 
 				<f:facet name="footer">
-					<p:button value="Novo" outcome="/pages/fabricanteCadastro.xhtml" />
+					<p:button value="Novo" outcome="/pages/fabricanteCadastro.xhtml">
+						<f:param name="fabacao" value="Novo" />
+					</p:button>
 				</f:facet>
 
 				<p:column headerText="Código">
@@ -39,10 +41,12 @@
 				</p:column>
 				<p:column headerText="Opções">
 					<p:button value="Excluir" outcome="/pages/fabricanteCadastro.xhtml">
-						<f:param name="codigo" value="#{fabricante.codigo}"></f:param>
+						<f:param name="fabacao" value="Excluir" />
+						<f:param name="fabcodigo" value="#{fabricante.codigo}"></f:param>
 					</p:button>
 					<p:button value="Editar" outcome="/pages/fabricanteCadastro.xhtml">
-						<f:param name="codigo" value="#{fabricante.codigo}"></f:param>
+						<f:param name="fabacao" value="Editar" />
+						<f:param name="fabcodigo" value="#{fabricante.codigo}"></f:param>
 					</p:button>
 				</p:column>
 			</p:dataTable>

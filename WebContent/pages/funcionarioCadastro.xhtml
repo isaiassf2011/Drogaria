@@ -7,6 +7,14 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="funacao" value="#{funcionarioBean.acao}"></f:viewParam>
+			<f:viewParam name="funcodigo" value="#{funcionarioBean.codigo}"></f:viewParam>
+			<f:event listener="#{funcionarioBean.carregarCadastro}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
 	<ui:define name="conteudo">
 		<h:form id="frmFunCad">
 			<p:toolbar>
@@ -16,16 +24,23 @@
 			</p:toolbar>
 			<h:panelGrid id="pnlFunCadDados" columns="2">
 				<p:outputLabel value="Código:" />
-				<p:inputText size="20" readonly="true" value="#{funcionarioBean.funcionario.codigo}"/>
+				<p:inputText size="20" readonly="true" 
+					value="#{funcionarioBean.funcionario.codigo}"/>
 
 				<p:outputLabel value="Nome:" />
-				<p:inputText maxlength="50" size="30" value="#{funcionarioBean.funcionario.nome}"/>
+				<p:inputText maxlength="50" size="30" 
+					value="#{funcionarioBean.funcionario.nome}" readonly="#{funcionarioBean.acao == 'Excluir'}">
+					<f:validateBean />
+				</p:inputText>
 
 				<p:outputLabel value="CPF:" />
-				<p:inputMask mask="999.999.999-99" size="15" value="#{funcionarioBean.funcionario.cpf}"></p:inputMask>
+				<p:inputMask mask="999.999.999-99" size="15" 
+					value="#{funcionarioBean.funcionario.cpf}" readonly="#{funcionarioBean.acao == 'Excluir'}">
+					<f:validateBean />
+				</p:inputMask>
 
 				<p:outputLabel value="Função:" />
-				<p:selectOneMenu value="#{funcionarioBean.funcionario.funcao}">
+				<p:selectOneMenu value="#{funcionarioBean.funcionario.funcao}" disabled="#{funcionarioBean.acao == 'Excluir'}">
 					<f:selectItem itemLabel="Selecione uma função" itemValue="" />
 					<f:selectItem itemLabel="Administrador" itemValue="Administrador" />
 					<f:selectItem itemLabel="Gerente" itemValue="Gerente" />
@@ -33,14 +48,35 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Senha:" />
-				<p:password maxlength="8" size="10" value="#{funcionarioBean.funcionario.senha}"/>
+				<p:password maxlength="8" size="10" 
+					value="#{funcionarioBean.funcionario.senha}" readonly="#{funcionarioBean.acao == 'Excluir'}"
+					redisplay="true">
+					<f:validateBean />
+				</p:password>
 			</h:panelGrid>
 
-			<h:panelGrid columns="3">
-				<p:commandButton value="Limpar" actionListener="#{funcionarioBean.limpar}" update=":frmFunCad:pnlFunCadDados"/>
-				<p:commandButton value="Salvar" actionListener="#{funcionarioBean.salvar}" update=":msgGlobal :frmFunCad:pnlFunCadDados"/>
-				<p:commandButton value="Voltar"
-					action="/pages/funcionarioPesquisa.xhtml?faces-redirect=true" />
+			<h:panelGrid columns="5">
+				<p:commandButton value="Novo" 
+					actionListener="#{funcionarioBean.limpar}"
+					update=":frmFunCad:pnlFunCadDados"
+					rendered="#{funcionarioBean.acao == 'Novo'}"
+					process="@this"/>
+				<p:commandButton value="Salvar" 
+					actionListener="#{funcionarioBean.salvar}" 
+					update=":msgGlobal :frmFunCad:pnlFunCadDados"
+					rendered="#{funcionarioBean.acao == 'Novo'}"/>
+				
+				<p:commandButton value="Excluir" 
+					actionListener="#{funcionarioBean.excluir}"
+					update=":msgGlobal"
+					rendered="#{funcionarioBean.acao == 'Excluir'}"/>
+				<p:commandButton value="Editar" 
+					actionListener="#{funcionarioBean.editar}"
+					update=":msgGlobal"
+					rendered="#{funcionarioBean.acao == 'Editar'}"/>
+				
+				<p:button value="Voltar"
+					outcome="/pages/funcionarioPesquisa.xhtml" />
 			</h:panelGrid>
 			
 		</h:form>
