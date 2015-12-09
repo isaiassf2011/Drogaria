@@ -31,22 +31,38 @@
 				<p:outputLabel value="Descrição:" />
 				<p:inputText maxlength="50" size="30"
 					value="#{produtoBean.produtoCadastro.descricao}"
-					readonly="#{produtoBean.acao == 'Excluir'}" >
+					readonly="#{produtoBean.acao == 'Excluir'}">
 					<f:validateBean />
 				</p:inputText>
-				
+
 				<p:outputLabel value="Preço:" />
-				<p:inputText size="20"
-					value="#{produtoBean.produtoCadastro.preco}"
-					readonly="#{produtoBean.acao == 'Excluir'}" >
+				<p:inputText size="20" value="#{produtoBean.produtoCadastro.preco}"
+					readonly="#{produtoBean.acao == 'Excluir'}">
 					<f:validateBean />
 				</p:inputText>
-				
+
+				<p:outputLabel value="Quantidade:" />
+				<p:inputText size="20"
+					value="#{produtoBean.produtoCadastro.quantidade}"
+					readonly="#{produtoBean.acao == 'Excluir'}">
+					<f:validateBean />
+				</p:inputText>
+
+				<p:outputLabel value="Fabricante:" />
+				<p:selectOneMenu value="#{produtoBean.produtoCadastro.fabricante}"
+					disabled="#{produtoBean.acao == 'Excluir'}"
+					converter="fabricanteConverter">
+					<f:selectItem itemLabel="Selecione uma função" itemValue="" />
+					<f:selectItems value="#{produtoBean.listaFabricantes}"
+						var="fabricante" itemValue="#{fabricante}"
+						itemLabel="#{fabricante.descricao}" />
+					<f:validateBean />
+				</p:selectOneMenu>
+
 			</h:panelGrid>
 
 			<h:panelGrid columns="5">
-				<p:commandButton value="Novo"
-					actionListener="#{produtoBean.limpar}"
+				<p:commandButton value="Novo" actionListener="#{produtoBean.limpar}"
 					update=":frmProCad:pnlProCadDados"
 					rendered="#{produtoBean.acao == 'Novo'}" />
 				<p:commandButton value="Salvar"
@@ -54,17 +70,14 @@
 					update=":msgGlobal :frmProCad:pnlProCadDados"
 					rendered="#{produtoBean.acao == 'Novo'}" />
 
-				<p:commandButton value="Excluir" 
-					actionListener="#{produtoBean.excluir}"
-					update=":msgGlobal"
-					rendered="#{produtoBean.acao == 'Excluir'}"/>
-				<p:commandButton value="Editar" 
-					actionListener="#{produtoBean.editar}"
-					update=":msgGlobal"
-					rendered="#{produtoBean.acao == 'Editar'}"/>
+				<p:commandButton value="Excluir"
+					actionListener="#{produtoBean.excluir}" update=":msgGlobal"
+					rendered="#{produtoBean.acao == 'Excluir'}" />
+				<p:commandButton value="Editar"
+					actionListener="#{produtoBean.editar}" update=":msgGlobal"
+					rendered="#{produtoBean.acao == 'Editar'}" />
 
-				<p:button value="Voltar"
-					outcome="/pages/produtoPesquisa.xhtml" />
+				<p:button value="Voltar" outcome="/pages/produtoPesquisa.xhtml" />
 			</h:panelGrid>
 		</h:form>
 	</ui:define>

@@ -41,11 +41,11 @@ public class Produto {
 	@Column(name = "pro_preco", nullable = false, precision = 7, scale = 2)
 	private BigDecimal preco;
 
-	@NotEmpty(message = "O campo quantidade é obrigatório")
+	@NotNull(message = "O campo quantidade é obrigatório")
 	@Column(name = "pro_quantidade", nullable = false)
 	private Integer quantidade;
 
-	@NotEmpty(message = "O campo fabricante é obrigatório")
+	@NotNull(message = "O campo fabricante é obrigatório")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tbl_fabricantes_fab_codigo", referencedColumnName = "fab_codigo", nullable = false)
 	private Fabricante fabricante;
@@ -97,4 +97,29 @@ public class Produto {
 				+ ", fabricante=" + fabricante + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
+	}
+	
 }

@@ -32,14 +32,30 @@
 					</p:button>
 				</f:facet>
 
-				<p:column headerText="Código">
+				<p:column headerText="Código" style="width: 8%;">
 					<h:outputText value="#{produto.codigo}" />
 				</p:column>
+				
 				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
 					sortBy="#{produto.descricao}">
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
-				<p:column headerText="Opções">
+				
+				<p:column headerText="Preço" sortBy="#{produto.preco}" style="width: 8%;">
+					<h:outputText value="#{produto.preco}" />
+				</p:column>
+				
+				<p:column headerText="Qtde" style="width: 6%;">
+					<h:outputText value="#{produto.quantidade}" />
+				</p:column>
+				
+				<p:column headerText="Fabricante" 
+					filterBy="#{produto.fabricante.descricao}" 
+					sortBy="#{produto.fabricante.descricao}">
+					<h:outputText value="#{produto.fabricante.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Opções" style="width: 18%;">
 					<p:button value="Excluir" outcome="/pages/produtoCadastro.xhtml">
 						<f:param name="proacao" value="Excluir" />
 						<f:param name="procodigo" value="#{produto.codigo}"></f:param>

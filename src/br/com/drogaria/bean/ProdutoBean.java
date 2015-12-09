@@ -5,7 +5,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.drogaria.dao.FabricanteDAO;
 import br.com.drogaria.dao.ProdutoDAO;
+import br.com.drogaria.entity.Fabricante;
 import br.com.drogaria.entity.Produto;
 import br.com.drogaria.util.FacesUtil;
 
@@ -18,6 +20,8 @@ public class ProdutoBean {
 	private List<Produto> listaProdutosFiltrados;
 	private String acao;
 	private Long codigo;
+	
+	private List<Fabricante> listaFabricantes;
 
 	public List<Produto> getListaProdutos() {
 		return listaProdutos;
@@ -57,6 +61,14 @@ public class ProdutoBean {
 	
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
+	}
+	
+	public List<Fabricante> getListaFabricantes() {
+		return listaFabricantes;
+	}
+	
+	public void setListaFabricantes(List<Fabricante> listaFabricantes) {
+		this.listaFabricantes = listaFabricantes;
 	}
 
 	public void salvar() {
@@ -120,6 +132,9 @@ public class ProdutoBean {
 			}else{
 				limpar();
 			}
+			
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			listaFabricantes = fabricanteDAO.listar();
 			
 		} catch (RuntimeException ex) {
 			FacesUtil.addMsgErro("Erro ao tentar obter os dados do produto: "+ ex.getMessage());
