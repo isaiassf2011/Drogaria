@@ -62,9 +62,11 @@
 			</h:panelGrid>
 
 			<h:panelGrid columns="5">
-				<p:commandButton value="Novo" actionListener="#{produtoBean.limpar}"
+				<p:commandButton value="Novo" 
+					actionListener="#{produtoBean.limpar}"
 					update=":frmProCad:pnlProCadDados"
-					rendered="#{produtoBean.acao == 'Novo'}" />
+					rendered="#{produtoBean.acao == 'Novo'}" 
+					process="@this"/>
 				<p:commandButton value="Salvar"
 					actionListener="#{produtoBean.salvar}"
 					update=":msgGlobal :frmProCad:pnlProCadDados"

@@ -40,7 +40,8 @@
 				<p:commandButton value="Novo"
 					actionListener="#{fabricanteBean.limpar}"
 					update=":frmFabCad:pnlFabCadDados"
-					rendered="#{fabricanteBean.acao == 'Novo'}" />
+					rendered="#{fabricanteBean.acao == 'Novo'}"
+					process="@this" />
 				<p:commandButton value="Salvar"
 					actionListener="#{fabricanteBean.salvar}"
 					update=":msgGlobal :frmFabCad:pnlFabCadDados"
