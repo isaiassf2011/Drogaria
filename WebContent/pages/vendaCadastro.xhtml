@@ -54,7 +54,7 @@
 				<p:column headerText="Opções" style="width: 15%;">
 					<p:commandButton value="Adicionar" 
 						actionListener="#{vendaBean.adicionar(produto)}"
-						update=":frmVenda:tblItens"
+						update=":frmVenda:tblItens :frmVenda:txtVendaValorTotal"
 					/>
 				</p:column>
 			</p:dataTable>
@@ -85,10 +85,46 @@
 				<p:column headerText="Opções">
 					<p:commandButton value="Remover" 
 						actionListener="#{vendaBean.remover(item)}"
-						update=":frmVenda:tblItens"/>
+						update=":frmVenda:tblItens :frmVenda:txtVendaValorTotal"/>
 				</p:column>
 			</p:dataTable>
+			
+			<p:separator />
+			<h:panelGrid>
+				<h:outputText id="txtVendaValorTotal" 
+					value="Valor Total: #{vendaBean.vendaCadastro.valorTotal}" />
+				<p:commandButton value="Finalizar Venda" 
+					actionListener="#{vendaBean.carregarDadosVenda}"
+					oncomplete="PF('wvDlgFinVenda').show();" 
+					update=":frmFinVenda:pnlDadosFinVenda"/>
+			</h:panelGrid>
 		</h:form>
+		
+		<p:dialog closable="true" draggable="true" 
+			modal="true" resizable="false" 
+			header="Dados da Venda"
+			widgetVar="wvDlgFinVenda"
+			appendTo="@(body)">
+			<h:form id="frmFinVenda">
+				<h:panelGrid id="pnlDadosFinVenda" columns="2">
+					<h:outputText value="Horario:" />
+					<h:outputText value="#{vendaBean.vendaCadastro.horario}" >
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Sao_Paulo"/>
+					</h:outputText>
+					<h:outputText value="Funcionario: " />
+					<h:outputText value="#{vendaBean.vendaCadastro.funcionario.nome}" />
+					<h:outputText value="Valor Total: " />
+					<h:outputText value="#{vendaBean.vendaCadastro.valorTotal}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" 
+						actionListener="#{vendaBean.salvar}"
+						update=":msgGlobal :frmVenda:tblItens :frmVenda:txtVendaValorTotal"
+						oncomplete="PF('wvDlgFinVenda').hide();"/>
+					<p:commandButton value="Voltar" onclick="PF('wvDlgFinVenda').hide();"/>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
 
