@@ -49,8 +49,8 @@
 
 				<p:outputLabel value="Senha:" />
 				<p:password maxlength="8" size="10" 
-					value="#{funcionarioBean.funcionario.senha}" readonly="#{funcionarioBean.acao == 'Excluir'}"
-					redisplay="true">
+					value="#{funcionarioBean.funcionario.senha}" 
+					readonly="#{funcionarioBean.acao == 'Excluir'}">
 					<f:validateBean />
 				</p:password>
 			</h:panelGrid>

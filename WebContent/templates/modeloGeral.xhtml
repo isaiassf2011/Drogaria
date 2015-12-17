@@ -26,20 +26,23 @@
 <!-- 		<p:layoutUnit position="south" header="Desenvolvido por Isaias"> -->
 <!-- 		</p:layoutUnit> -->
 		<p:layoutUnit position="west" size="250">
-			<h:form>
-				<p:panelMenu>
+			<h:form id="frmMnPrincipal">
+				<p:panelMenu id="pnlMnPrincipal">
 					<p:submenu label="Arquivo">
-						<p:menuitem value="Principal" outcome="/pages/principal.xhtml" />
-						<p:menuitem value="Sair" />
+						<p:menuitem value="Autenticação" outcome="/pages/autenticacao.xhtml" rendered="#{autenticacaoBean.funcionarioLogado.funcao == null}"/>
+						<p:menuitem value="Principal" outcome="/pages/principal.xhtml" rendered="#{autenticacaoBean.funcionarioLogado.funcao != null}"/>
+						<p:menuitem value="Sair" 
+							action="#{autenticacaoBean.sair}"
+							rendered="#{autenticacaoBean.funcionarioLogado.funcao != null}"/>
 					</p:submenu>
-					<p:submenu label="Cadastros">
+					<p:submenu label="Cadastros" rendered="#{autenticacaoBean.funcionarioLogado.funcao != null}">
 						<p:menuitem value="Fabricantes"
 							outcome="/pages/fabricantePesquisa.xhtml" />
 						<p:menuitem value="Produtos" outcome="/pages/produtoPesquisa.xhtml"/>
 						<p:menuitem value="Funcionarios"
-							outcome="/pages/funcionarioPesquisa.xhtml" />
+							outcome="/pages/funcionarioPesquisa.xhtml" rendered="#{autenticacaoBean.funcionarioLogado.funcao != 'Balconista'}"/>
 					</p:submenu>
-					<p:submenu label="Vendas">
+					<p:submenu label="Vendas" rendered="#{autenticacaoBean.funcionarioLogado.funcao != null}">
 						<p:menuitem value="Novo" outcome="/pages/vendaCadastro.xhtml"/>
 					</p:submenu>
 					<p:submenu label="Arquivo">

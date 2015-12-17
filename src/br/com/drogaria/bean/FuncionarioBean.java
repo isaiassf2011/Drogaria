@@ -5,6 +5,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import br.com.drogaria.dao.FabricanteDAO;
 import br.com.drogaria.dao.FuncionarioDAO;
 import br.com.drogaria.entity.Fabricante;
@@ -65,6 +67,7 @@ public class FuncionarioBean {
 	public void salvar() {
 		try {
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			funcionario.setSenha(DigestUtils.md5Hex(funcionario.getSenha()));
 			funcionarioDAO.salvar(funcionario);
 			limpar();
 			FacesUtil.addMsgInfo("Funcionario salvo com sucesso");
@@ -76,6 +79,7 @@ public class FuncionarioBean {
 	public void editar() {
 		try {
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			funcionario.setSenha(DigestUtils.md5Hex(funcionario.getSenha()));
 			funcionarioDAO.alterar(funcionario);
 			
 			FacesUtil.addMsgInfo("Funcionario alterado com sucesso");

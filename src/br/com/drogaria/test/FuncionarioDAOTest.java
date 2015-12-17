@@ -78,6 +78,7 @@ public class FuncionarioDAOTest {
 	}
 
 	@Test
+	@Ignore
 	public void alterar() {
 
 		Funcionario funcionario = new Funcionario();
@@ -90,6 +91,14 @@ public class FuncionarioDAOTest {
 		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 		funcionarioDAO.alterar(funcionario);
 
+	}
+	
+	@Test
+	public void autenticar(){
+		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+		Funcionario funcionario = funcionarioDAO.autenticar("111.111.111-11", "123456");
+		
+		System.out.print(funcionario);
 	}
 
 }

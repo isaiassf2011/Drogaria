@@ -40,21 +40,21 @@
 				<p:commandButton value="Novo"
 					actionListener="#{fabricanteBean.limpar}"
 					update=":frmFabCad:pnlFabCadDados"
-					rendered="#{fabricanteBean.acao == 'Novo'}"
+					rendered="#{fabricanteBean.acao == 'Novo' and autenticacaoBean.funcionarioLogado.funcao != 'Balconista'}"
 					process="@this" />
 				<p:commandButton value="Salvar"
 					actionListener="#{fabricanteBean.salvar}"
 					update=":msgGlobal :frmFabCad:pnlFabCadDados"
-					rendered="#{fabricanteBean.acao == 'Novo'}" />
+					rendered="#{fabricanteBean.acao == 'Novo' and autenticacaoBean.funcionarioLogado.funcao != 'Balconista'}" />
 
 				<p:commandButton value="Excluir" 
 					actionListener="#{fabricanteBean.excluir}"
 					update=":msgGlobal"
-					rendered="#{fabricanteBean.acao == 'Excluir'}"/>
+					rendered="#{fabricanteBean.acao == 'Excluir' and autenticacaoBean.funcionarioLogado.funcao != 'Balconista'}"/>
 				<p:commandButton value="Editar" 
 					actionListener="#{fabricanteBean.editar}"
 					update=":msgGlobal"
-					rendered="#{fabricanteBean.acao == 'Editar'}"/>
+					rendered="#{fabricanteBean.acao == 'Editar' and autenticacaoBean.funcionarioLogado.funcao != 'Balconista'}"/>
 
 				<p:button value="Voltar"
 					outcome="/pages/fabricantePesquisa.xhtml" />
