@@ -28,8 +28,8 @@
 			
 			<h:panelGrid columns="1">
 				<p:commandButton value="Entrar" 
-					actionListener="#{autenticacaoBean.autenticar}"
-					update=":msgGlobal :frmMnPrincipal:pnlMnPrincipal"/>
+					action="#{autenticacaoBean.autenticar}"
+					update=":msgGlobal"/>
 			</h:panelGrid>
 		</h:form>
 	</ui:define>
