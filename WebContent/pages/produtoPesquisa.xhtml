@@ -53,8 +53,10 @@
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 				
-				<p:column headerText="Preço" sortBy="#{produto.preco}" style="width: 8%;">
-					<h:outputText value="#{produto.preco}" />
+				<p:column headerText="Preço" sortBy="#{produto.preco}" style="width: 10%;">
+					<h:outputText value="#{produto.preco}" >
+						<f:convertNumber pattern="0.00"/>
+					</h:outputText>
 				</p:column>
 				
 				<p:column headerText="Qtde" style="width: 6%;">
