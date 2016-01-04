@@ -17,6 +17,7 @@ import br.com.drogaria.entity.Funcionario;
 import br.com.drogaria.entity.Item;
 import br.com.drogaria.entity.Produto;
 import br.com.drogaria.entity.Venda;
+import br.com.drogaria.filter.VendaFilter;
 import br.com.drogaria.util.FacesUtil;
 
 @ManagedBean
@@ -31,6 +32,9 @@ public class VendaBean {
 	
 	@ManagedProperty(value = "#{autenticacaoBean}")
 	private AutenticacaoBean autenticacaoBean;
+	
+	private VendaFilter filtro;
+	private List<Venda> listaVendas;
 	
 	public List<Produto> getListaProdutos() {
 		return listaProdutos;
@@ -52,6 +56,7 @@ public class VendaBean {
 		if(vendaCadastro == null){
 			vendaCadastro = new Venda();
 			vendaCadastro.setValorTotal(new BigDecimal("0.00"));
+			vendaCadastro.setQuantidade(0);
 		}
 		return vendaCadastro;
 	}
@@ -77,6 +82,25 @@ public class VendaBean {
 	
 	public void setAutenticacaoBean(AutenticacaoBean autenticacaoBean) {
 		this.autenticacaoBean = autenticacaoBean;
+	}
+	
+	public VendaFilter getFiltro() {
+		if(filtro == null){
+			filtro = new VendaFilter();
+		}
+		return filtro;
+	}
+	
+	public void setFiltro(VendaFilter filtro) {
+		this.filtro = filtro;
+	}
+	
+	public List<Venda> getListaVendas() {
+		return listaVendas;
+	}
+	
+	public void setListaVendas(List<Venda> listaVendas) {
+		this.listaVendas = listaVendas;
 	}
 	
 	public void carregarProdutos(){
@@ -113,6 +137,7 @@ public class VendaBean {
 		}
 		
 		vendaCadastro.setValorTotal(vendaCadastro.getValorTotal().add(produto.getPreco()));
+		vendaCadastro.setQuantidade(vendaCadastro.getQuantidade() + 1);
 	}
 	
 	public void remover(Item item){
@@ -120,6 +145,7 @@ public class VendaBean {
 		for (int i = 0; i < listaItens.size(); i++) {
 			if(listaItens.get(i).getProduto().equals(item.getProduto())){
 				vendaCadastro.setValorTotal(vendaCadastro.getValorTotal().subtract(item.getValorParcial()));
+				vendaCadastro.setQuantidade(vendaCadastro.getQuantidade() - item.getQuantidade());
 				listaItens.remove(i);
 				break;
 			}
@@ -154,6 +180,22 @@ public class VendaBean {
 		} catch (RuntimeException ex) {
 			FacesUtil.addMsgErro("Erro ao tentar salvar venda: "+ ex.getMessage());
 		}
+	}
+	
+	public void buscar(){
+		
+		try{
+			VendaDAO vendaDAO = new VendaDAO();
+			listaVendas = vendaDAO.buscar(filtro);
+			
+			for (Venda venda : listaVendas) {
+				System.out.println(venda);
+			}
+			
+		} catch (RuntimeException ex) {
+			FacesUtil.addMsgErro("Erro ao tentar buscar uma venda: "+ ex.getMessage());
+		}
+		
 	}
 
 }

@@ -56,7 +56,7 @@
 				<p:column headerText="Opções" style="width: 15%;">
 					<p:commandButton value="Adicionar" 
 						actionListener="#{vendaBean.adicionar(produto)}"
-						update=":frmVenda:tblItens :frmVenda:txtVendaValorTotal"
+						update=":frmVenda:tblItens"
 					/>
 				</p:column>
 			</p:dataTable>
@@ -76,11 +76,18 @@
 					<h:outputText value="#{item.produto.fabricante.descricao}" />
 				</p:column>
 
-				<p:column headerText="Quantidade">
+				<p:column headerText="Quantidade" 
+					footerText="Total: #{vendaBean.vendaCadastro.quantidade}">
 					<h:outputText value="#{item.quantidade}" />
 				</p:column>
 				
 				<p:column headerText="Valor Parcial">
+					<f:facet name="footer">
+						<h:outputText value="Total: " />
+						<h:outputText value="#{vendaBean.vendaCadastro.valorTotal}">
+							<f:convertNumber pattern="0.00" />
+						</h:outputText>
+					</f:facet>
 					<h:outputText value="#{item.valorParcial}">
 						<f:convertNumber pattern="0.00"/>
 					</h:outputText>
@@ -89,14 +96,12 @@
 				<p:column headerText="Opções">
 					<p:commandButton value="Remover" 
 						actionListener="#{vendaBean.remover(item)}"
-						update=":frmVenda:tblItens :frmVenda:txtVendaValorTotal"/>
+						update=":frmVenda:tblItens"/>
 				</p:column>
 			</p:dataTable>
 			
 			<p:separator />
 			<h:panelGrid>
-				<h:outputText id="txtVendaValorTotal" 
-					value="Valor Total: #{vendaBean.vendaCadastro.valorTotal}" />
 				<p:commandButton value="Finalizar Venda" 
 					actionListener="#{vendaBean.carregarDadosVenda}"
 					oncomplete="PF('wvDlgFinVenda').show();" 
@@ -123,7 +128,7 @@
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar" 
 						actionListener="#{vendaBean.salvar}"
-						update=":msgGlobal :frmVenda:tblItens :frmVenda:txtVendaValorTotal"
+						update=":msgGlobal :frmVenda:tblItens"
 						oncomplete="PF('wvDlgFinVenda').hide();"/>
 					<p:commandButton value="Voltar" onclick="PF('wvDlgFinVenda').hide();"/>
 				</h:panelGrid>
